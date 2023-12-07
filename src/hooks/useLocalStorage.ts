@@ -6,12 +6,11 @@ type StorageTypes = {
   setWeatherData: (text: string) => void;
   getPrev: () => void;
 };
-const useLocalSorage = (): StorageTypes => {
+const useLocalStorage = (): StorageTypes => {
   const [weatherData, setWeatherData] = useState("");
   const { setText } = useSearch();
-  useEffect(() => {
-    console.log(111);
 
+  useEffect(() => {
     localStorage.setItem("weather", `${weatherData}`);
   }, [weatherData]);
 
@@ -30,4 +29,4 @@ const useLocalSorage = (): StorageTypes => {
   };
 };
 
-export default useLocalSorage;
+export default useLocalStorage;
