@@ -5,8 +5,8 @@ export const weather = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_ENDPOINT}` }),
   endpoints: (build) => ({
     findWeather: build.query({
-      query: ({ text = "Yerevan", format = "m" }) =>
-        `current?access_key=${process.env.REACT_APP_API_KEY}&query=${text}&units=${format}`,
+      query: ({ query = "Yerevan", format = "m" }) =>
+        `current?access_key=${process.env.REACT_APP_API_KEY}&query=${query}&units=${format}`,
     }),
   }),
 });

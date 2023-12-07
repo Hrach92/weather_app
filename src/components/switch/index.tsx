@@ -5,13 +5,14 @@ const SwitchTemp = () => {
   const { setFormat } = useSwitch();
 
   const changeTheme = (value: boolean) => {
-    setFormat(value ? "m" : "f");
+    setFormat(value ? "f" : "m");
   };
+
   return (
     <Switch
       onChange={changeTheme}
-      checkedChildren="C°"
-      unCheckedChildren="F°"
+      checkedChildren="F°"
+      unCheckedChildren="C°"
     />
   );
 };

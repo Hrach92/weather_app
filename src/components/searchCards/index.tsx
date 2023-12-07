@@ -17,7 +17,7 @@ const SearchCards = ({ query }: { query?: string }): React.JSX.Element => {
       request: {},
     },
   } = useFindWeatherQuery({ query: query || text, format: format });
-  console.log(current, location, request);
+  console.log(text, current, location, request);
 
   return (
     <div className={styles.container}>

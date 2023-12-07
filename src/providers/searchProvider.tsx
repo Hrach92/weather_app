@@ -7,7 +7,7 @@ export const SearchContext = createContext({
 });
 
 const SearchProvider = ({ children }: { children: React.ReactNode }) => {
-  const [text, setText] = useState<string>("");
+  const [text, setText] = useState<string>("Yerevan");
 
   const value = useMemo(() => {
     return { text, setText };
