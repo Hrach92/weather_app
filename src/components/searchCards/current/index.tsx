@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./styles.module.css";
 
 type CurrentTypes = {
@@ -34,4 +34,4 @@ const Current = ({
     </div>
   );
 };
-export default Current;
+export default memo(Current);

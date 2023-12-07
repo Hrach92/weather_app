@@ -1,5 +1,6 @@
 import { Switch } from "antd";
 import useSwitch from "../../hooks/useSwitch";
+import { memo } from "react";
 
 const SwitchTemp = () => {
   const { setFormat } = useSwitch();
@@ -16,4 +17,4 @@ const SwitchTemp = () => {
     />
   );
 };
-export default SwitchTemp;
+export default memo(SwitchTemp);

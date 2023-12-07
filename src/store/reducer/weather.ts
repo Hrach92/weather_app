@@ -5,13 +5,18 @@ export const weather = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_ENDPOINT}` }),
   endpoints: (build) => ({
     findWeather: build.query({
-      query: (text) =>
+      query: (text = "") =>
         `current.json?key=${process.env.REACT_APP_API_KEY}&q=${text}`,
     }),
     findByIp: build.query({
-      query: (ip) =>
+      query: (ip = "") =>
         `current.json?key=${process.env.REACT_APP_API_KEY}&q=${ip}`,
+    }),
+    getDays: build.query({
+      query: (text = "") =>
+        `forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${text}&days=10`,
     }),
   }),
 });
-export const { useFindWeatherQuery, useFindByIpQuery } = weather;
+export const { useFindWeatherQuery, useFindByIpQuery, useGetDaysQuery } =
+  weather;

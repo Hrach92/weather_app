@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./styles.module.css";
 import useSearch from "../../hooks/useSearch";
 import { useFindWeatherQuery } from "../../store/reducer/weather";
@@ -14,7 +14,7 @@ const SearchCards = ({ query }: { query?: string }): React.JSX.Element => {
     data: { location, current } = {
       location: {},
       current: {},
-    },
+    } || {},
   } = useFindWeatherQuery(query || text);
 
   const temp = format === "m" ? current?.temp_c : current?.temp_f;
@@ -37,8 +37,8 @@ const SearchCards = ({ query }: { query?: string }): React.JSX.Element => {
         visibility={current?.vis_km}
         wind_speed={current?.wind_kph}
       />
-      <WeatherCharts data={[5, 4, 6, 7, 9, 5, 6, 2, 4, 12]} />
+      <WeatherCharts />
     </div>
   );
 };
-export default SearchCards;
+export default memo(SearchCards);

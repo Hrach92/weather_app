@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useState } from "react";
 import { Input } from "antd";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,14 +16,14 @@ const SearchComponent = ({
 }): React.JSX.Element => {
   const { data } = useFindWeatherQuery(text);
   const { setWeatherData } = useLocalStorage();
+  const [value, setValue] = useState("");
 
   const navigate = useNavigate();
   const onSearch = useCallback(
     (e: any) => {
       setWeatherData(JSON.stringify(data));
       setText(e);
-      console.log(e);
-
+      setValue("");
       navigate("/search");
     },
     [data, navigate, setText, setWeatherData]
@@ -34,7 +34,9 @@ const SearchComponent = ({
       placeholder="Search ..."
       onSearch={onSearch}
       style={{ width: 200 }}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
     />
   );
 };
-export default SearchComponent;
+export default memo(SearchComponent);

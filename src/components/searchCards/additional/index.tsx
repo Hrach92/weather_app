@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./styles.module.css";
 
 type AdditionalTypes = {
@@ -47,4 +47,4 @@ const Additional = ({
     </div>
   );
 };
-export default Additional;
+export default memo(Additional);

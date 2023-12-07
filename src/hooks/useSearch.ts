@@ -15,7 +15,8 @@ const useSearch = (): SearchTypes => {
     useContext(SearchContext);
   const [ip, setIP] = useState("");
 
-  const { data: { location } = { location: {} } } = useFindByIpQuery(ip);
+  const { data: { location } = { location: {} } || {} } = useFindByIpQuery(ip);
+
   const getData = useCallback(async () => {
     try {
       const res = await axios.get("https://api.ipify.org/?format=json");
@@ -27,12 +28,13 @@ const useSearch = (): SearchTypes => {
   }, [setLocationOn]);
 
   useEffect(() => {
-    if (!locationOn) {
+    if (locationOn) {
       getData();
+    } else if (ip) {
       setText(location?.name);
     }
+    return () => {};
   }, [location?.name, getData, setText]);
-  console.log(location, location?.name, locationOn, 4545, ip);
 
   return {
     text,
