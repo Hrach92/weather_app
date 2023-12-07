@@ -17,9 +17,13 @@ const useSearch = (): SearchTypes => {
 
   const { data: { location } = { location: {} } } = useFindByIpQuery(ip);
   const getData = useCallback(async () => {
-    const res = await axios.get("https://api.ipify.org/?format=json");
-    setIP(res.data.ip);
-    setLocationOn((prev) => !prev);
+    try {
+      const res = await axios.get("https://api.ipify.org/?format=json");
+      setIP(res.data.ip);
+      setLocationOn((prev) => !prev);
+    } catch (err: any) {
+      console.log(err.message);
+    }
   }, [setLocationOn]);
 
   useEffect(() => {

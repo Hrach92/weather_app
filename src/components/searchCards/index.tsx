@@ -17,21 +17,23 @@ const SearchCards = ({ query }: { query?: string }): React.JSX.Element => {
     },
   } = useFindWeatherQuery(query || text);
 
+  const temp = format === "m" ? current?.temp_c : current?.temp_f;
+
   return (
     <div className={styles.container}>
       <Current
         name={location?.name}
         country={location?.country}
         localtime={location?.localtime}
-        temperature={format === "m" ? current?.temp_c : current?.temp_f}
+        temperature={temp}
         weather_descriptions={current?.condition?.["text"]}
         img={current?.condition?.["icon"].slice(2)}
       />
       <Additional
-        feelslike={current?.feelslike}
+        feelslike={temp}
         humidity={current?.humidity}
         pressure={current?.pressure_mb}
-        temperature={format === "m" ? current?.temp_c : current?.temp_f}
+        temperature={temp}
         visibility={current?.vis_km}
         wind_speed={current?.wind_kph}
       />

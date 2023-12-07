@@ -35,7 +35,9 @@ const Header = (): React.JSX.Element => {
           </Link>
           <SwitchTemp />
           <EnvironmentOutlined onClick={setTrue} />
-          <DoubleLeftOutlined className={styles.prev} onClick={getPrev} />
+          <Link to="/previous" className={styles.link}>
+            <DoubleLeftOutlined className={styles.prev} onClick={getPrev} />
+          </Link>
         </div>
         <SearchComponent setText={setText} text={text} />
       </div>
