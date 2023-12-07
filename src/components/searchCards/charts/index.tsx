@@ -1,16 +1,11 @@
-import { useState, useEffect, useMemo, memo } from "react";
-import styles from "./styles.module.css";
-
-import ReactApexChart, { Props as ChartProps } from "react-apexcharts";
+import { useMemo } from "react";
 import useSearch from "hooks/useSearch";
 import { useGetDaysQuery } from "store/reducer/weather";
 import useSwitch from "hooks/useSwitch";
 
-interface Props {
-  data?: number[] | [];
-}
+import Chart from "react-apexcharts";
 
-const WeatherCharts = ({ data }: Props) => {
+const WeatherCharts = () => {
   const { text } = useSearch();
   const { format } = useSwitch();
   const {
@@ -22,13 +17,22 @@ const WeatherCharts = ({ data }: Props) => {
   const temperatureId = format === "m" ? "°C" : "°F";
 
   const temperatures = useMemo(() => {
-    const tempC = forecastday?.map(({ day }: { day: any }) => {
+    const maxTempC = forecastday?.map(({ day }: { day: any }) => {
       return day?.maxtemp_c;
     });
-    const tempF = forecastday?.map(({ day }: { day: any }) => {
+    const maxTempF = forecastday?.map(({ day }: { day: any }) => {
       return day?.maxtemp_f;
     });
-    return format === "m" ? tempC : tempF;
+    const minTempC = forecastday?.map(({ day }: { day: any }) => {
+      return day?.mintemp_c;
+    });
+    const minTempF = forecastday?.map(({ day }: { day: any }) => {
+      return day?.mintemp_f;
+    });
+    return {
+      max: format === "m" ? maxTempC : maxTempF,
+      min: format === "m" ? minTempC : minTempF,
+    };
   }, [forecastday, format]);
 
   const dates = useMemo(() => {
@@ -38,82 +42,22 @@ const WeatherCharts = ({ data }: Props) => {
       }) || []
     );
   }, [forecastday]);
-
-  const areaChartOptions: ChartProps = {
-    chart: {
-      id: "new-stack-chart",
-      type: "bar",
-      sparkline: {
-        enabled: true,
-      },
-      toolbar: {
-        show: false,
-      },
-    },
-    formatter: function (val: any) {
-      return "Text: " + val;
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    plotOptions: {
-      bar: {
-        borderRadius: 2,
-        columnWidth: "10px",
-        border: "1px solid #ccc",
-        background: "#f7f7f7",
-      },
-    },
+  const options = {
     xaxis: {
-      crosshairs: {
-        width: 1,
-      },
-    },
-    tooltip: {
-      fixed: {
-        enabled: false,
-      },
-      x: {
-        show: false,
-      },
-      marker: {
-        show: false,
-      },
+      categories: dates,
     },
   };
-
-  const [temp, setTemp] = useState(() => [
+  const series = [
     {
-      name: "temp",
-      data: [] as number[] | [],
+      name: `Max temperature${temperatureId}`,
+      data: temperatures.max,
     },
-  ]);
-  useEffect(() => {
-    setTemp([
-      {
-        name: temperatureId,
-        data: (temperatures || []) as number[] | [],
-      },
-    ]);
-  }, [data, temperatureId, temperatures]);
+    {
+      name: `Min temperature${temperatureId}`,
+      data: temperatures.min,
+    },
+  ];
 
-  return (
-    <div className={styles.container}>
-      <span>Weather forecast for 10 days</span>
-      <ReactApexChart
-        options={areaChartOptions}
-        series={temp}
-        type="bar"
-        height={50}
-        width={300}
-      />
-      <div className={styles.dates}>
-        {dates?.map((day: number) => {
-          return <div key={day}>{day}</div>;
-        })}
-      </div>
-    </div>
-  );
+  return <Chart options={options} series={series} type="area" />;
 };
-
-export default memo(WeatherCharts);
+export default WeatherCharts;

@@ -14,7 +14,7 @@ export const weather = createApi({
     }),
     getDays: build.query({
       query: (text = "") =>
-        `forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${text}&days=10`,
+        `forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${text}&days=7`,
     }),
   }),
 });
