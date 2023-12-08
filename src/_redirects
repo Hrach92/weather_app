@@ -1,1 +1,2 @@
-/api/\* http://api.weatherapi.com/v1/:splat 200
+/api/_ http://159.89.188.76:3000/:splat 200
+/_ /index.html 200
