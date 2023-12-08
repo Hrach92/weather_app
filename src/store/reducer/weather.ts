@@ -6,15 +6,15 @@ export const weather = createApi({
   endpoints: (build) => ({
     findWeather: build.query({
       query: (text = "") =>
-        `current.json?key=87e0e8edb650486da83184302230712&q=${text}`,
+        `current.json?key=${process.env.REACT_APP_API_KEY}&q=${text}`,
     }),
     findByIp: build.query({
       query: (ip = "") =>
-        `current.json?key=87e0e8edb650486da83184302230712&q=${ip}`,
+        `current.json?key=${process.env.REACT_APP_API_KEY}&q=${ip}`,
     }),
     getDays: build.query({
       query: (text = "") =>
-        `forecast.json?key=87e0e8edb650486da83184302230712&q=${text}&days=7`,
+        `forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${text}&days=7`,
     }),
   }),
 });
