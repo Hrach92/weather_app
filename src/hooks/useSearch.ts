@@ -8,6 +8,7 @@ type SearchTypes = {
   locationOn: boolean;
   setLocationOn: (switched: ((item: boolean) => boolean) | boolean) => void;
   setText: (text: string) => void;
+  getData: () => void;
 };
 
 const useSearch = (): SearchTypes => {
@@ -28,21 +29,18 @@ const useSearch = (): SearchTypes => {
   }, [setLocationOn]);
 
   useEffect(() => {
-    if (locationOn) {
-      getData();
-    } else if (ip) {
+    if (ip) {
       setText(location?.name);
     }
-    console.log(111);
-
     return () => {};
-  }, [location?.name, getData, setText, locationOn, ip]);
+  }, [location?.name, ip, setText]);
 
   return {
     text,
     locationOn,
     setText,
     setLocationOn,
+    getData,
   };
 };
 export default useSearch;

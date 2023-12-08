@@ -14,18 +14,19 @@ import { Modal } from "antd";
 import useBoolean from "hooks/useBoolean";
 
 const Header = (): React.JSX.Element => {
-  const { setText, text, setLocationOn, locationOn } = useSearch();
+  const { setText, text, setLocationOn, locationOn, getData } = useSearch();
   const { getPrev } = useLocalStorage();
   const navigate = useNavigate();
 
   const { state, setTrue, setFalse } = useBoolean();
-  const setOn = useCallback(() => {
+  const setOn = useCallback(async () => {
     setLocationOn((prev: boolean) => !prev);
     setFalse();
     if (!locationOn) {
+      await getData();
       navigate("/");
     }
-  }, [locationOn, navigate, setFalse, setLocationOn]);
+  }, [getData, locationOn, navigate, setFalse, setLocationOn]);
 
   return (
     <>
