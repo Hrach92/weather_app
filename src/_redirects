@@ -1,2 +1,0 @@
-/api/_ http://api.weatherapi.com/v1/:splat 200
-/_ /index.html 200
