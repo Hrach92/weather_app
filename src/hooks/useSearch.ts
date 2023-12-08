@@ -33,8 +33,10 @@ const useSearch = (): SearchTypes => {
     } else if (ip) {
       setText(location?.name);
     }
+    console.log(111);
+
     return () => {};
-  }, [location?.name, getData, setText]);
+  }, [location?.name, getData, setText, locationOn, ip]);
 
   return {
     text,

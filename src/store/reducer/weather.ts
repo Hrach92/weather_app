@@ -2,19 +2,19 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const weather = createApi({
   reducerPath: "weather",
-  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_ENDPOINT}` }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://api.weatherapi.com/v1/" }),
   endpoints: (build) => ({
     findWeather: build.query({
       query: (text = "") =>
-        `current.json?key=${process.env.REACT_APP_API_KEY}&q=${text}`,
+        `current.json?key=87e0e8edb650486da83184302230712&q=${text}`,
     }),
     findByIp: build.query({
       query: (ip = "") =>
-        `current.json?key=${process.env.REACT_APP_API_KEY}&q=${ip}`,
+        `current.json?key=87e0e8edb650486da83184302230712&q=${ip}`,
     }),
     getDays: build.query({
       query: (text = "") =>
-        `forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${text}&days=7`,
+        `forecast.json?key=87e0e8edb650486da83184302230712&q=${text}&days=7`,
     }),
   }),
 });
